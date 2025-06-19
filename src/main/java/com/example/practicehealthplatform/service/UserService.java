@@ -35,12 +35,17 @@ public class UserService {
     public List<UserResponseDto> getAllUsers() {
         List<UserEntity> users = userRepository.findAll();
         return users.stream()
-                .map(user -> new UserResponseDto(user))
-                .collect(Collectors.toList());
-    }
+                .map(user -> new UserResponseDto(user.getId(),user.getUserName(), user.getUserNumber(), user.getStartDay(),user.getEndDay(),user.getGender())).collect(Collectors.toList());
+    }//UserResponseDto의 생성자와 UserEntity 생성자 갯수가 맞지 않음, UserResponseDto 6개 포함하여 생성자를 생성해주면 (user) 사용 가능.
     //특정회원조회(이름으로)
-    public List<UserResponseDto> getUserByName(String userName){
+    /*public List<UserResponseDto> getUserByName(String userName){
         List<UserEntity> users = userRepository.findByUserName(userName);
+        return users.stream()
+                .map(UserResponseDto::fromEntity)
+                .collect(Collectors.toList());
+    }*/
+    public List<UserResponseDto> getUserByName(String userName){
+        List<UserEntity> users = userRepository.findByUserNameContaining(userName);
         return users.stream()
                 .map(UserResponseDto::fromEntity)
                 .collect(Collectors.toList());
@@ -58,7 +63,7 @@ public class UserService {
         updatedUser.setEndDay(userRequestDto.getEndDay());
         updatedUser.setGender(userRequestDto.getGender());
         userRepository.save(updatedUser);
-        return new UserResponseDto(updatedUser);
+        return new UserResponseDto(updatedUser.getId(),updatedUser.getUserName(), updatedUser.getUserNumber(), updatedUser.getStartDay(),updatedUser.getEndDay(),updatedUser.getGender());
     }
 
 }

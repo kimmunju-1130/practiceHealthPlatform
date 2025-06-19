@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.apache.catalina.User;
 
 import java.time.LocalDate;
+@Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,8 +20,8 @@ public class UserResponseDto {
     private LocalDate endDay;
     private String gender;
 
-    public UserResponseDto(UserEntity user) {
-    }
+
+
 
     public static UserResponseDto fromEntity(UserEntity userEntity){
         UserResponseDto userResponseDto = new UserResponseDto();

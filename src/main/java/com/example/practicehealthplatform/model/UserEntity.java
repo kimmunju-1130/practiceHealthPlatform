@@ -25,9 +25,14 @@ public class UserEntity {
     private String gender;
 
     public UserEntity(String userName, String userNumber, LocalDate startDay, LocalDate endDay, String gender) {
+        this.userName=userName;
+        this.userNumber=userNumber;
+        this.startDay=startDay;
+        this.endDay=endDay;
+        this.gender=gender;
     }
+    //id는 자동으로 생성되는 것이므로 생성자에서 제외해서 만들어야 오류가 안남.
 
-    public UserEntity get() {
-        return null;
-    }
+
+
 }
